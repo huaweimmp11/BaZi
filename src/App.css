@@ -1,0 +1,232 @@
+﻿/* ============================================
+   八字命理 · 古风中式美学
+   配色：宣纸底 + 墨色 + 朱红 + 泥金
+   ============================================ */
+
+:root {
+  --paper: #E8E0D5;
+  --paper-dark: #DDD5C8;
+  --paper-light: #F2EDE5;
+  --ink: #2C1810;
+  --ink-light: #5C4035;
+  --ink-lighter: #8B7D72;
+  --red: #A02020;
+  --red-light: #C43030;
+  --red-dark: #801818;
+  --gold: #C49A3C;
+  --gold-light: #E8D5A3;
+  --gold-dark: #A07A28;
+  --jade: #5A8A6A;
+  --white: #F5F0E8;
+  --border: #D0C4B0;
+  --border-light: #DDD5C8;
+  --shadow: 0 2px 12px rgba(44,24,16,0.1);
+  --shadow-sm: 0 1px 4px rgba(44,24,16,0.06);
+  --radius: 8px;
+  --radius-sm: 4px;
+  --font-cn: "Noto Serif SC", "Source Han Serif SC", "STSong", "SimSun", "Songti SC", "KaiTi", serif;
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+html { background-color: var(--paper); }
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-sans);
+  color: var(--ink);
+  background: var(--paper);
+  line-height: 1.8;
+  background-image:
+    radial-gradient(ellipse at 20% 50%, rgba(196,154,60,0.03) 0%, transparent 70%),
+    radial-gradient(ellipse at 80% 20%, rgba(160,32,32,0.02) 0%, transparent 50%);
+  background-attachment: fixed;
+}
+
+#root {
+  background: var(--paper);
+  min-height: 100vh;
+}
+
+h1, h2, h3, h4 { font-family: var(--font-cn); font-weight: 700; line-height: 1.35; color: var(--ink); }
+h1 { font-size: 2.2rem; letter-spacing: 4px; }
+h2 { font-size: 1.5rem; margin: 2rem 0 1rem; color: var(--red); letter-spacing: 2px; border-bottom: 1px solid var(--border-light); padding-bottom: 6px; }
+h3 { font-size: 1.15rem; margin: 1.2rem 0 0.6rem; color: var(--ink-light); }
+a { color: var(--red); text-decoration: none; transition: color 0.2s var(--damp-out); }
+a:hover { color: var(--red-light); }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+/* --- Header --- */
+.header {
+  background: linear-gradient(180deg, var(--ink) 0%, #3D2317 100%);
+  position: sticky; top: 0; z-index: 100;
+  border-bottom: 2px solid var(--gold);
+}
+.header-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  height: 64px; max-width: 1200px; margin: 0 auto; padding: 0 20px;
+}
+.logo {
+  font-family: var(--font-cn); font-size: 1.35rem;
+  color: var(--gold-light); letter-spacing: 3px;
+}
+.logo span { color: var(--red); }
+.nav { display: flex; gap: 2px; }
+.nav a {
+  color: #C4B5A0; padding: 8px 14px; border-radius: var(--radius-sm);
+  font-size: 0.88rem; transition: background 0.3s ease, color 0.3s ease;
+  white-space: nowrap; font-family: var(--font-cn);
+}
+.nav a:hover, .nav a.active { background: rgba(196,154,60,0.15); color: var(--gold-light); }
+
+/* --- Hero --- */
+.hero {
+  background: linear-gradient(135deg, var(--ink) 0%, #3D2317 50%, #4A2C1E 100%);
+  color: var(--paper); padding: 64px 0 54px; text-align: center;
+  position: relative; overflow: hidden;
+}
+.hero::before {
+  content: "";
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c49a3c' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  opacity: 0.5;
+}
+.hero h1 { color: var(--gold-light); margin-bottom: 0.5rem; position: relative; }
+.hero p { color: #C4B5A0; max-width: 600px; margin: 0 auto; position: relative; font-family: var(--font-cn); letter-spacing: 1px; }
+.hero hr {
+  width: 80px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  margin: 16px auto; border: none; position: relative;
+}
+
+/* --- Cards --- */
+.card-grid { display: grid; gap: 20px; margin: 20px 0; }
+.card-grid-2 { grid-template-columns: 1fr 1fr; }
+.card {
+  background: var(--white); border: 1px solid var(--border-light);
+  border-radius: var(--radius); padding: 24px;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+}
+.card h3 { margin-top: 0; font-size: 1.05rem; }
+.card p { font-size: 0.88rem; color: var(--ink-lighter); }
+.card-icon { font-size: 1.6rem; margin-bottom: 6px; display: block; }
+
+/* --- Pages --- */
+.page-header {
+  background: linear-gradient(135deg, var(--ink), #3D2317);
+  color: var(--paper); padding: 36px 0 28px; text-align: center;
+  position: relative;
+}
+.page-header h1 { color: var(--gold-light); margin-bottom: 4px; letter-spacing: 4px; }
+.page-header p { color: #C4B5A0; font-size: 0.9rem; font-family: var(--font-cn); }
+
+.section { padding: 40px 0; }
+.section-title { text-align: center; margin-bottom: 28px; }
+.section-title h2 { margin-top: 0; margin-bottom: 6px; border-bottom: none; }
+.section-title p { color: var(--ink-lighter); font-size: 0.9rem; }
+
+.content { padding: 28px 0 50px; }
+.content-body {
+  background: var(--white); border: 1px solid var(--border-light);
+  border-radius: var(--radius); padding: 28px 36px;
+  box-shadow: var(--shadow-sm); max-width: 860px; margin: 0 auto;
+  position: relative;
+}
+.content-body h2:first-child { margin-top: 0; }
+
+/* --- Tables --- */
+table { width: 100%; border-collapse: collapse; font-size: 0.88rem; margin: 12px 0 20px; }
+th, td { padding: 8px 12px; text-align: center; border: 1px solid var(--border-light); }
+th {
+  background: var(--ink); color: var(--gold-light);
+  font-weight: 600; font-family: var(--font-cn);
+}
+tr:nth-child(even) { background: var(--paper-light); }
+tr:hover { background: rgba(196,154,60,0.08); }
+
+/* --- Info Box --- */
+.info-box {
+  background: linear-gradient(135deg, #EDE6D8, #F5F0E8);
+  border-left: 3px solid var(--gold);
+  padding: 14px 20px; margin: 14px 0; border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  font-size: 0.9rem;
+}
+.info-box strong { color: var(--red); }
+
+/* --- Bazi Chart --- */
+.bazi-chart {
+  display: grid;
+  grid-template-columns: 56px 1fr 1fr 1fr 1fr;
+  margin: 16px 0;
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.bazi-chart .cl { background: var(--ink); color: var(--gold-light); padding: 8px; font-weight: 600; font-size: 0.82rem; text-align: center; border-right: 1px solid var(--border); font-family: var(--font-cn); letter-spacing: 2px; }
+.bazi-chart .cp { text-align: center; padding: 8px; background: var(--white); border-right: 1px solid var(--border-light); }
+.bazi-chart .cp:last-child { border-right: none; }
+.bazi-chart .stem { font-size: 1.4rem; font-weight: 700; font-family: var(--font-cn); }
+.bazi-chart .branch { font-size: 1.4rem; font-weight: 700; font-family: var(--font-cn); }
+.bazi-chart .ss { font-size: 0.72rem; color: var(--ink-lighter); margin-top: 2px; }
+.bazi-chart .ny { font-size: 0.68rem; color: var(--ink-lighter); margin-top: 1px; }
+.bazi-chart .hs { font-size: 0.72rem; color: var(--ink-lighter); margin-top: 3px; padding-top: 3px; border-top: 1px dashed var(--border-light); }
+
+/* --- Form --- */
+.calc-form { background: var(--white); border: 1px solid var(--border-light); border-radius: var(--radius); padding: 24px 28px; margin-bottom: 20px; box-shadow: var(--shadow-sm); }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+.form-group { display: flex; flex-direction: column; }
+.form-group label { font-size: 0.82rem; font-weight: 600; margin-bottom: 4px; color: var(--ink-lighter); font-family: var(--font-cn); }
+.form-group input, .form-group select { padding: 9px 12px; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 0.92rem; background: var(--paper-light); transition: border 0.3s ease, box-shadow 0.3s ease; font-family: var(--font-sans); }
+.form-group input:focus, .form-group select:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(196,154,60,0.12); }
+.btn { padding: 10px 28px; border: none; border-radius: var(--radius-sm); font-size: 0.92rem; font-weight: 600; cursor: pointer; font-family: var(--font-cn); letter-spacing: 2px; position: relative; overflow: hidden; }
+.btn-primary { background: linear-gradient(135deg, var(--red), var(--red-dark)); color: var(--white); }
+.btn-primary:hover { background: linear-gradient(135deg, var(--red-light), var(--red)); }
+.btn-secondary { background: var(--ink); color: var(--gold-light); }
+.btn-secondary:hover { background: #3D2317; }
+.form-actions { display: flex; gap: 12px; margin-top: 6px; justify-content: center; }
+
+/* --- Roadmap --- */
+.roadmap { position: relative; padding: 16px 0; }
+.roadmap::before {
+  content: ""; position: absolute; top: 0; bottom: 0; left: 24px;
+  width: 1px; background: linear-gradient(180deg, var(--gold), var(--border), var(--gold));
+}
+.roadmap-item { position: relative; padding-left: 58px; margin-bottom: 26px; }
+.roadmap-item::before {
+  content: attr(data-step);
+  position: absolute; left: 10px; top: 2px;
+  width: 30px; height: 30px;
+  background: linear-gradient(135deg, var(--red), var(--red-dark));
+  color: var(--gold-light);
+  border-radius: 50%; display: flex;
+  align-items: center; justify-content: center;
+  font-size: 0.78rem; font-weight: 700; z-index: 1;
+  font-family: var(--font-cn);
+  border: 2px solid var(--gold-light);
+}
+.roadmap-item h3 { margin: 0 0 3px; }
+.roadmap-item p { font-size: 0.88rem; color: var(--ink-lighter); margin-bottom: 2px; }
+.tag {
+  display: inline-block; padding: 2px 12px; border-radius: 12px;
+  font-size: 0.73rem; font-weight: 600;
+  background: rgba(196,154,60,0.12); color: var(--gold-dark);
+}
+
+/* --- Footer --- */
+.footer {
+  background: linear-gradient(180deg, #3D2317, var(--ink));
+  color: #C4B5A0; text-align: center; padding: 28px 20px; font-size: 0.85rem;
+  border-top: 2px solid var(--gold);
+}
+.footer strong { color: var(--gold-light); }
+
+@media (max-width: 768px) {
+  .nav a { padding: 6px 10px; font-size: 0.82rem; }
+  .card-grid-2 { grid-template-columns: 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+  .content-body { padding: 20px; }
+  .bazi-chart { grid-template-columns: 40px 1fr 1fr 1fr 1fr; }
+  .bazi-chart .stem, .bazi-chart .branch { font-size: 1rem; }
+  h1 { font-size: 1.8rem; }
+}
+

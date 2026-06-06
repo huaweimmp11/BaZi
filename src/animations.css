@@ -1,0 +1,155 @@
+﻿/* ============================================
+   动画过渡 · 阻尼丝滑
+   ============================================ */
+
+:root {
+  --damp-out: cubic-bezier(0.25, 0.1, 0.15, 1.05);
+  --damp-in: cubic-bezier(0.4, 0, 0.2, 1);
+  --smooth: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* --- 路由淡入淡出容器 --- */
+.route-container {
+  position: relative;
+  min-height: 60vh;
+  background: var(--paper);
+}
+.crossfade-wrap {
+  position: relative;
+  min-height: 60vh;
+}
+.crossfade-wrap > div {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+}
+.crossfade-enter-active {
+  opacity: 1;
+  animation: routeFadeIn 0.3s ease both;
+  position: relative !important;
+  z-index: 2;
+}
+.crossfade-exit-active {
+  opacity: 1;
+  animation: routeFadeOut 0.2s ease both;
+  z-index: 1;
+}
+
+@keyframes routeFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes routeFadeOut {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+/* --- 页面内容进场动画 --- */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.content-body {
+  animation: fadeUp 0.5s var(--damp-out) both;
+}
+
+.hero { animation: fadeUp 0.5s var(--damp-out) both; }
+.section:nth-of-type(1) { animation: fadeUp 0.5s var(--damp-out) 0.1s both; }
+.section:nth-of-type(2) { animation: fadeUp 0.5s var(--damp-out) 0.2s both; }
+
+/* --- 路径步骤依次弹出 --- */
+.roadmap-item {
+  opacity: 0;
+  animation: fadeUp 0.4s var(--damp-out) forwards;
+}
+.roadmap-item:nth-child(1) { animation-delay: 0.15s; }
+.roadmap-item:nth-child(2) { animation-delay: 0.25s; }
+.roadmap-item:nth-child(3) { animation-delay: 0.35s; }
+.roadmap-item:nth-child(4) { animation-delay: 0.45s; }
+.roadmap-item:nth-child(5) { animation-delay: 0.55s; }
+.roadmap-item:nth-child(6) { animation-delay: 0.65s; }
+
+/* --- 卡片阻尼悬停 --- */
+.card {
+  transition: transform 0.35s var(--damp-out), box-shadow 0.35s var(--damp-out);
+}
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 24px rgba(44,24,16,0.14);
+}
+.card::before {
+  content: "";
+  position: absolute; top: 0; left: 0; width: 100%; height: 3px;
+  background: linear-gradient(90deg, var(--red), var(--gold));
+  opacity: 0; transition: opacity 0.35s var(--damp-out);
+}
+.card:hover::before { opacity: 1; }
+
+.nav a { transition: background 0.3s ease, color 0.3s ease; }
+
+/* --- 按钮阻尼 --- */
+.btn { transition: all 0.3s var(--damp-out); }
+.btn::after {
+  content: ""; position: absolute; inset: 0;
+  background: rgba(255,255,255,0.1);
+  opacity: 0; transition: opacity 0.35s ease;
+}
+.btn:hover::after { opacity: 1; }
+.btn:active { transform: scale(0.95); }
+
+/* --- 排盘结果展开动画 --- */
+.result-area {
+  opacity: 0; max-height: 0; overflow: hidden;
+  transition: opacity 0.4s var(--damp-out), max-height 0.6s var(--damp-out);
+}
+.result-area.active { opacity: 1; max-height: 5000px; }
+
+/* --- 四柱表格逐列浮现 --- */
+.bazi-chart .cp {
+  opacity: 0;
+  animation: fadeUp 0.35s var(--damp-out) forwards;
+}
+.bazi-chart .cp:nth-child(8) { animation-delay: 0.05s; }
+.bazi-chart .cp:nth-child(9) { animation-delay: 0.1s; }
+.bazi-chart .cp:nth-child(10) { animation-delay: 0.15s; }
+.bazi-chart .cp:nth-child(11) { animation-delay: 0.2s; }
+.bazi-chart .cp:nth-child(13) { animation-delay: 0.15s; }
+.bazi-chart .cp:nth-child(14) { animation-delay: 0.2s; }
+.bazi-chart .cp:nth-child(15) { animation-delay: 0.25s; }
+.bazi-chart .cp:nth-child(16) { animation-delay: 0.3s; }
+.bazi-chart .cp:nth-child(18) { animation-delay: 0.25s; }
+.bazi-chart .cp:nth-child(19) { animation-delay: 0.3s; }
+.bazi-chart .cp:nth-child(20) { animation-delay: 0.35s; }
+.bazi-chart .cp:nth-child(21) { animation-delay: 0.4s; }
+.bazi-chart .cp:nth-child(23) { animation-delay: 0.35s; }
+.bazi-chart .cp:nth-child(24) { animation-delay: 0.4s; }
+.bazi-chart .cp:nth-child(25) { animation-delay: 0.45s; }
+.bazi-chart .cp:nth-child(26) { animation-delay: 0.5s; }
+
+/* --- 大运表格行渐入 --- */
+.content-body table:nth-of-type(3) tr {
+  opacity: 0;
+  animation: fadeUp 0.35s var(--damp-out) forwards;
+}
+.content-body table:nth-of-type(3) tr:nth-child(1) { animation-delay: 0.15s; }
+.content-body table:nth-of-type(3) tr:nth-child(2) { animation-delay: 0.25s; }
+.content-body table:nth-of-type(3) tr:nth-child(3) { animation-delay: 0.35s; }
+
+.info-box { animation: fadeUp 0.4s var(--damp-out) both; animation-delay: 0.2s; }
+tr { transition: background 0.25s ease; }
+.page-header { animation: fadeUp 0.4s var(--damp-out) both; }
+.footer { animation: fadeUp 0.5s var(--damp-out) 0.1s both; }
+
+/* --- 散花渐变装饰动画 --- */
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+.hero h1 {
+  background: linear-gradient(90deg, var(--gold-light), var(--gold), var(--gold-light));
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 4s ease-in-out infinite;
+}

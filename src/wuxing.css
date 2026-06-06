@@ -1,0 +1,20 @@
+﻿/* 五行颜色 */
+.wx-木 { color: #2E7D32 !important; }
+.wx-火 { color: #C62828 !important; }
+.wx-土 { color: #8D6E63 !important; }
+.wx-金 { color: #B8860B !important; }
+.wx-水 { color: #1565C0 !important; }
+
+/* Bazi chart 内 */
+.bazi-chart .stem.wx-木, .bazi-chart .branch.wx-木 { color: #2E7D32; }
+.bazi-chart .stem.wx-火, .bazi-chart .branch.wx-火 { color: #C62828; }
+.bazi-chart .stem.wx-土, .bazi-chart .branch.wx-土 { color: #8D6E63; }
+.bazi-chart .stem.wx-金, .bazi-chart .branch.wx-金 { color: #B8860B; }
+.bazi-chart .stem.wx-水, .bazi-chart .branch.wx-水 { color: #1565C0; }
+
+/* 全站通用：th/td 上的五行色 */
+td.wx-木, th.wx-木, td .wx-木, th .wx-木 { color: #2E7D32; font-weight: 600; }
+td.wx-火, th.wx-火, td .wx-火, th .wx-火 { color: #C62828; font-weight: 600; }
+td.wx-土, th.wx-土, td .wx-土, th .wx-土 { color: #8D6E63; font-weight: 600; }
+td.wx-金, th.wx-金, td .wx-金, th .wx-金 { color: #B8860B; font-weight: 600; }
+td.wx-水, th.wx-水, td .wx-水, th .wx-水 { color: #1565C0; font-weight: 600; }
