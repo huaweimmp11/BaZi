@@ -7,18 +7,20 @@ import ShiShenPage from "./pages/ShiShenPage";
 import PatternsPage from "./pages/PatternsPage";
 import ClassicsPage from "./pages/ClassicsPage";
 import MethodsPage from "./pages/MethodsPage";
+import RelationsPage from "./pages/RelationsPage";
 import "./App.css";
 import "./animations.css";
 import "./wuxing.css";
 
 const links = [
   { to: "/", label: "🏠 首页" },
-  { to: "/basics", label: "📖 基础" },
-  { to: "/methods", label: "📐 起法" },
-  { to: "/calculator", label: "🧮 排盘" },
+  { to: "/basics", label: "📖 基础入门" },
+  { to: "/calculator", label: "🧮 在线排盘" },
+  { to: "/relations", label: "🔗 干支关系" },
   { to: "/shishen", label: "🔤 十神" },
-  { to: "/patterns", label: "🏛️ 格局" },
-  { to: "/classics", label: "📚 经典" }
+  { to: "/patterns", label: "🏛️ 格局大运" },
+  { to: "/methods", label: "📐 推算起法" },
+  { to: "/classics", label: "📚 经典参考" }
 ];
 
 function CrossFade({ children, locationKey }) {
@@ -77,6 +79,7 @@ export default function App() {
           <Route path="/shishen" element={<ShiShenPage />} />
           <Route path="/patterns" element={<PatternsPage />} />
           <Route path="/classics" element={<ClassicsPage />} />
+          <Route path="/relations" element={<RelationsPage />} />
         </Routes>
       </CrossFade>
 

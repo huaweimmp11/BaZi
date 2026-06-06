@@ -16,6 +16,7 @@ export default function CalculatorPage() {
   const [h, setH] = useState(12);
   const [g, setG] = useState("male");
   const [r, setR] = useState(null);
+  const [showZty, setShowZty] = useState(false);
 
   const doCalc = () => {
     if (!y || !m || !d) { alert("请填写完整"); return; }
@@ -49,6 +50,28 @@ export default function CalculatorPage() {
             </div>
           </div>
 
+          {/* 真太阳时说明 */}
+          <div className="collapsible">
+            <button className="collapsible-btn" onClick={() => setShowZty(!showZty)}>
+              {showZty ? "▼" : "▶"} 关于真太阳时 <span className="small" style={{color:"var(--ink-lighter)"}}>（点击展开）</span>
+            </button>
+            {showZty && (
+              <div className="collapsible-body">
+                <h4>什么是真太阳时？</h4>
+                <p>真太阳时是以太阳实际位置确定的时间系统。中国地域辽阔，东西横跨约 60 个经度，北京时间是东经 120° 的标准时间，不同地点实际看到太阳的时间不同。</p>
+                <h4>为什么要用真太阳时？</h4>
+                <p>八字命理源于"天人合一"理论，时间系统由太阳相对位置决定。使用真太阳时排盘后，时辰的天干需用"五鼠遁"重新计算，整个时柱都可能改变。</p>
+                <h4>换算方法</h4>
+                <p>经度每比东经 120° 小 1 度，减 4 分钟；每大 1 度，加 4 分钟。</p>
+                <p className="small" style={{color:"var(--ink-lighter)"}}><strong>例：</strong>新疆喀什（东经 76°），比 120° 小 44°，减 176 分钟 ≈ 2 小时 56 分。</p>
+                <h4>早晚子时</h4>
+                <p>子时（23:00~01:00）分两段：<strong>晚子时</strong>23:00~23:59 日柱用当天，时柱用次日五鼠遁；<strong>早子时</strong>00:00~00:59 用次日干支。</p>
+                <h4>参考工具</h4>
+                <p>推荐在线换算：<a href="https://www.yigua.net/ztys-chaxun" target="_blank" rel="noopener">易卦网·真太阳时查询</a></p>
+              </div>
+            )}
+          </div>
+
           {r && (
             <div>
               <h3>📋 排盘结果</h3>
@@ -56,7 +79,6 @@ export default function CalculatorPage() {
                 {y}年{m}月{d}日 {h}时 · {g === "male" ? "男" : "女"}
               </p>
 
-              {/* 四柱表 */}
               <div className="bazi-chart">
                 <div className="cl"></div>
                 {pn.map(n => <div key={n} className="cl">{n}</div>)}
@@ -92,7 +114,6 @@ export default function CalculatorPage() {
                 )}
               </div>
 
-              {/* 十神表 */}
               <h3>🔤 十神</h3>
               <table><thead><tr><th>四柱</th>{pn.map(n => <th key={n}>{n}</th>)}</tr></thead><tbody>
                 <tr><th>天干</th>{r.pillars.map((p, i) => <td key={i}><span className={"wx-" + p.wuxing}>{p.stem}</span></td>)}</tr>
@@ -100,7 +121,6 @@ export default function CalculatorPage() {
                 <tr><th>五行</th>{r.pillars.map((p, i) => <td key={i}><span className={"wx-" + p.wuxing}>{p.wuxing}</span></td>)}</tr>
               </tbody></table>
 
-              {/* 大运 */}
               <h3>🚀 大运</h3>
               <p className="small" style={{color:"var(--ink-lighter)",fontSize:"0.85rem"}}>
                 {r.daYun.forward ? "顺排" : "逆排"} · {r.daYun.startAge}岁起运
