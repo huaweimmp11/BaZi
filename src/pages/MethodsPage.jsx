@@ -37,7 +37,7 @@ function getJieDates(year) {
   return result;
 }
 
-export default function MethodsPage() {
+import TocSidebar from "../components/TocSidebar";export default function MethodsPage() {
   const jie = getJieDates(new Date().getFullYear());
 
   return (
@@ -45,7 +45,7 @@ export default function MethodsPage() {
       <div className="page-header">
         <div className="container"><h1>推算起法</h1><p>五虎遁 · 五鼠遁 · 日柱公式 · 大运起法</p></div>
       </div>
-      <section className="content">
+      <section className="content"><TocSidebar>
         <div className="container"><div className="content-body">
 
           <h2>一、年柱起法</h2>
@@ -169,7 +169,8 @@ export default function MethodsPage() {
           </div>
 
         </div></div>
-      </section>
+      </TocSidebar></section>
     </div>
   );
 }
+

@@ -1,4 +1,5 @@
-﻿const stems = ["甲","乙","丙","丁","戊","己","庚","辛","壬","癸"];
+﻿import TocSidebar from "../components/TocSidebar";
+const stems = ["甲","乙","丙","丁","戊","己","庚","辛","壬","癸"];
 const stemWx = ["木","木","火","火","土","土","金","金","水","水"];
 
 function StemWx({ c }) { const i = stems.indexOf(c); return i >= 0 ? <span className={"wx-" + stemWx[i]}>{c}</span> : c; }
@@ -22,10 +23,10 @@ export default function ShiShenPage() {
       <div className="page-header">
         <div className="container"><h1>十神体系</h1><p>以日干为中心 · 十种关系的语言</p></div>
       </div>
-      <section className="content">
+      <section className="content"><TocSidebar>
         <div className="container"><div className="content-body">
 
-          <h2>十神定义</h2>
+          <h2 id="shi-shen-ding-yi">十神定义</h2>
           <p>以日柱天干（日主）为中心，与其他干支的生克关系定义十种角色。五行相同为"同我"，
           日干生别的为"我生"，别的生日干为"生我"，日干克别的为"我克"，别的克日干为"克我"。</p>
           <table><thead><tr><th>关系</th><th>阴阳相同</th><th>阴阳相异</th></tr></thead><tbody>
@@ -38,7 +39,7 @@ export default function ShiShenPage() {
 
           <div className="callout-box"><strong>口诀：</strong>生我正印偏印，我生食神伤官；克我正官七杀，我克正财偏财；同我比肩劫财。</div>
 
-          <h2>十神详解</h2>
+          <h2 id="shi-shen-xiang-jie">十神详解</h2>
           <table><thead><tr><th>十神</th><th>关系</th><th>六亲</th><th>类象</th><th>特点</th></tr></thead><tbody>
             {list.map((s, i) => (
               <tr key={i}>
@@ -48,7 +49,7 @@ export default function ShiShenPage() {
             ))}
           </tbody></table>
 
-          <h2>地支藏干与十神</h2>
+          <h2 id="zhi-cang-gan">地支藏干与十神</h2>
           <p>地支中的藏干也与日干产生十神关系。比如日干为<StemWx c="戊" />，
           地支<StemWx c="寅" />中藏有<StemWx c="甲" />（七杀）、<StemWx c="丙" />（偏印）、<StemWx c="戊" />（比肩）。</p>
           <div className="callout-box">
@@ -56,7 +57,7 @@ export default function ShiShenPage() {
           </div>
 
         </div></div>
-      </section>
+      </TocSidebar></section>
     </div>
   );
 }

@@ -283,3 +283,56 @@ table.small th, table.small td { padding: 5px 8px; font-size: 0.82rem; }
   table.small th, table.small td { padding: 4px 5px; font-size: 0.75rem; }
   .table-scroll { margin: 8px -10px; padding: 0 10px; }
 }
+
+/* --- TOC Sidebar --- */
+.toc-wrapper { position: relative; }
+.toc-content { flex: 1; min-width: 0; }
+
+.toc-sidebar {
+  position: fixed; top: 80px; right: -260px; width: 220px;
+  max-height: calc(100vh - 100px); overflow-y: auto;
+  background: var(--white); border: 1px solid var(--border-light);
+  border-radius: var(--radius); padding: 12px 0;
+  box-shadow: var(--shadow); z-index: 90;
+  transition: right 0.3s cubic-bezier(0.25, 0.1, 0.15, 1.05);
+}
+.toc-open { right: 16px; }
+
+.toc-title {
+  font-family: var(--font-cn); font-size: 0.82rem; font-weight: 700;
+  color: var(--red); padding: 4px 16px 8px; border-bottom: 1px solid var(--border-light);
+  margin-bottom: 4px;
+}
+.toc-item {
+  display: block; width: 100%; text-align: left;
+  background: none; border: none; cursor: pointer;
+  font-family: var(--font-sans); font-size: 0.78rem; color: var(--ink-lighter);
+  padding: 4px 16px 4px 0; line-height: 1.4;
+  transition: color 0.2s ease, background 0.2s ease;
+}
+.toc-item:hover { color: var(--ink); background: rgba(196,154,60,0.06); }
+.toc-item.toc-active { color: var(--red); font-weight: 600; }
+.toc-l3 { padding-left: 18px; font-size: 0.74rem; }
+.toc-l4 { padding-left: 32px; font-size: 0.7rem; }
+
+.toc-toggle {
+  display: none; position: fixed; right: 12px; bottom: 80px;
+  width: 40px; height: 40px; border-radius: 50%;
+  background: var(--red); color: var(--white); border: none;
+  font-size: 1.1rem; cursor: pointer; z-index: 95;
+  box-shadow: var(--shadow); transition: transform 0.2s ease;
+}
+.toc-toggle:hover { transform: scale(1.1); }
+
+@media (min-width: 1200px) {
+  .toc-sidebar { right: 16px; }
+  .toc-toggle { display: none !important; }
+}
+@media (max-width: 1199px) {
+  .toc-sidebar { right: -260px; }
+  .toc-open { right: 12px; }
+  .toc-toggle { display: flex; align-items: center; justify-content: center; }
+}
+@media (max-width: 768px) {
+  .toc-sidebar { width: 190px; font-size: 0.75rem; }
+}

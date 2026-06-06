@@ -9,7 +9,7 @@ const hours = [
 ];
 const pn = ["年柱", "月柱", "日柱", "时柱"];
 
-export default function CalculatorPage() {
+import TocSidebar from "../components/TocSidebar";export default function CalculatorPage() {
   const [y, setY] = useState(2000);
   const [m, setM] = useState(1);
   const [d, setD] = useState(15);
@@ -28,7 +28,7 @@ export default function CalculatorPage() {
       <div className="page-header">
         <div className="container"><h1>在线排盘</h1><p>输入出生信息 · 一键排四柱八字</p></div>
       </div>
-      <section className="content">
+      <section className="content"><TocSidebar>
         <div className="container"><div className="content-body">
           <div className="info-box"><strong>💡</strong> 输入公历出生信息，基于万年历数据精准推算。</div>
 
@@ -136,7 +136,8 @@ export default function CalculatorPage() {
             </div>
           )}
         </div></div>
-      </section>
+      </TocSidebar></section>
     </div>
   );
 }
+

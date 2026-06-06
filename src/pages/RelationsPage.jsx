@@ -93,13 +93,13 @@ function getXun(gz) {
   return -1;
 }
 
-export default function RelationsPage() {
+import TocSidebar from "../components/TocSidebar";export default function RelationsPage() {
   return (
     <div>
       <div className="page-header">
         <div className="container"><h1>干支关系</h1><p>天干五合 · 天干四冲 · 地支刑冲合害 · 生旺死绝 · 地支藏干 · 空亡</p></div>
       </div>
-      <section className="content">
+      <section className="content"><TocSidebar>
         <div className="container"><div className="content-body">
 
           <h2>一、天干五合</h2>
@@ -247,7 +247,8 @@ export default function RelationsPage() {
           </div>
 
         </div></div>
-      </section>
+      </TocSidebar></section>
     </div>
   );
 }
+

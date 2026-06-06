@@ -49,13 +49,13 @@ const jieQi = [
 function StemWx({ c }) { const i = stems.indexOf(c); return i >= 0 ? <span className={"wx-" + stemWx[i]}>{c}</span> : c; }
 function BranchWx({ c }) { const i = branches.indexOf(c); return i >= 0 ? <span className={"wx-" + branchWx[i]}>{c}</span> : c; }
 
-export default function BasicsPage() {
+import TocSidebar from "../components/TocSidebar";export default function BasicsPage() {
   return (
     <div>
       <div className="page-header">
         <div className="container"><h1>基础入门</h1><p>四柱八字 · 阴阳五行 · 天干地支 · 类象节气</p></div>
       </div>
-      <section className="content">
+      <section className="content"><TocSidebar>
         <div className="container"><div className="content-body">
 
           <h2>一、四柱八字</h2>
@@ -149,7 +149,8 @@ export default function BasicsPage() {
           <div className="callout-box"><strong>📌 节气歌：</strong>春雨惊春清谷天，夏满芒夏暑相连，秋处露秋寒霜降，冬雪雪冬小大寒。</div>
 
         </div></div>
-      </section>
+      </TocSidebar></section>
     </div>
   );
 }
+
