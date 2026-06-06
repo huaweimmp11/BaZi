@@ -282,8 +282,8 @@ table.small th, table.small td { padding: 5px 8px; font-size: 0.82rem; }
   .collapsible-body { padding: 12px 14px; }
   table.small th, table.small td { padding: 4px 5px; font-size: 0.75rem; }
   .table-scroll { margin: 8px -10px; padding: 0 10px; }
-}
-
+}\n
+/* --- TOC Sidebar --- */
 /* --- TOC Sidebar --- */
 .toc-wrapper { position: relative; }
 .toc-content { flex: 1; min-width: 0; }
@@ -335,4 +335,9 @@ table.small th, table.small td { padding: 5px 8px; font-size: 0.82rem; }
 }
 @media (max-width: 768px) {
   .toc-sidebar { width: 190px; font-size: 0.75rem; }
+}
+
+@media (max-width: 1023px) {
+  .toc-content { width: 100%; }
+  .toc-sidebar { display: none; }
 }

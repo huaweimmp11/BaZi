@@ -55,6 +55,8 @@ function CrossFade({ children, locationKey }) {
 export default function App() {
   const location = useLocation();
 
+  useEffect(() => { window.scrollTo({ top: 0, behavior: "smooth" }); }, [location.pathname]);
+
   return (
     <div style={{ background: "var(--paper)", minHeight: "100vh" }}>
       <header className="header">
@@ -90,3 +92,4 @@ export default function App() {
     </div>
   );
 }
+
