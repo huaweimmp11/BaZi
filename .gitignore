@@ -3,3 +3,6 @@ dist
 vite*.log
 *.local
 .DS_Store
+.vercel
+
+deploy.ps1
