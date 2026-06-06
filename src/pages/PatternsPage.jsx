@@ -1,5 +1,5 @@
-import TocSidebar from "../components/TocSidebar";
-﻿export default function PatternsPage() {
+﻿import TocSidebar from "../components/TocSidebar";
+export default function PatternsPage() {
   return (
     <div>
       <div className="page-header">
@@ -51,3 +51,4 @@ import TocSidebar from "../components/TocSidebar";
     </div>
   );
 }
+

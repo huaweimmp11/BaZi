@@ -1,4 +1,110 @@
-import TocSidebar from "../components/TocSidebar";
+﻿import TocSidebar from "../components/TocSidebar";
+const stems = ["甲","乙","丙","丁","戊","己","庚","辛","壬","癸"];
+const branches = ["子","丑","寅","卯","辰","巳","午","未","申","酉","戌","亥"];
+const stemWx = ["木","木","火","火","土","土","金","金","水","水"];
+const branchWx = ["水","土","木","木","土","火","火","土","金","金","土","水"];
+
+function StemWx({ c }) { const i = stems.indexOf(c); return i >= 0 ? <span className={"wx-" + stemWx[i]}>{c}</span> : c; }
+function BranchWx({ c }) { const i = branches.indexOf(c); return i >= 0 ? <span className={"wx-" + branchWx[i]}>{c}</span> : c; }
+
+const fiveHe = [
+  ["甲己","土",0,5,"甲木属阳己土属阴，甲木本身克土但阳木遇阴土异性相吸则合"],
+  ["乙庚","金",1,6,"庚金属阳乙木属阴，庚金本身克木但阳金遇阴木异性相吸则合"],
+  ["丙辛","水",2,7,"丙火属阳辛金属阴，丙火本身克金但阳火遇阴金异性相吸则合"],
+  ["丁壬","木",3,8,"丁火属阴壬水属阳，壬水本身克火但阳水遇阴火异性相吸则合"],
+  ["戊癸","火",4,9,"戊土属阳癸水属阴，戊土本身克水但阳土遇阴水异性相吸则合"]
+];
+
+const fourChong = [
+  ["甲庚",0,6], ["乙辛",1,7], ["丙壬",2,8], ["丁癸",3,9]
+];
+
+const sixChongs = [
+  { pair: "子午", wx: "阳水阳火", note: "南北正位对冲" },
+  { pair: "丑未", wx: "两阴土", note: "" },
+  { pair: "寅申", wx: "阳金阳木", note: "东西正位对冲" },
+  { pair: "卯酉", wx: "阴金阴木", note: "东西正位对冲" },
+  { pair: "辰戌", wx: "两阳土", note: "" },
+  { pair: "巳亥", wx: "阴水阴火", note: "南北正位对冲" }
+];
+const sixHe = [
+  { pair: "子丑", relation: "克合", result: "土", reverse: "水" },
+  { pair: "寅亥", relation: "生合", result: "木", reverse: "" },
+  { pair: "卯戌", relation: "克合", result: "火", reverse: "" },
+  { pair: "辰酉", relation: "生合", result: "金", reverse: "" },
+  { pair: "巳申", relation: "克合", result: "水", reverse: "" },
+  { pair: "午未", relation: "生合", result: "火土", reverse: "" }
+];
+
+const sanHe = [
+  ["申","子","辰","水",8,0,4], ["亥","卯","未","木",11,3,7],
+  ["寅","午","戌","火",2,6,10], ["巳","酉","丑","金",5,9,1]
+];
+
+const sanHui = [
+  ["寅","卯","辰","木","春",2,3,4],
+  ["巳","午","未","火","夏",5,6,7],
+  ["申","酉","戌","金","秋",8,9,10],
+  ["亥","子","丑","水","冬",11,0,1]
+];
+
+const xingItems = [
+  { name: "无礼之刑", pairs: [["子","卯"]], desc: "子属水卯属木，水生木为母与子，子卯相刑为子不敬母" },
+  { name: "无恩之刑", pairs: [["寅","巳"],["巳","申"]], desc: "寅刑巳、巳刑申，以强凌弱忘恩负义" },
+  { name: "恃势之刑", pairs: [["丑","未"],["未","戌"],["戌","丑"]], desc: "丑未戌皆属土，同类相争恃势欺人" },
+  { name: "自刑", pairs: [["辰"],["午"],["酉"],["亥"]], desc: "辰辰、午午、酉酉、亥亥自相刑" }
+];
+
+const shengWang = ["长生","沐浴","冠带","临官","帝旺","衰","病","死","墓","绝","胎","养"];
+const swTable = [
+  ["甲","亥","子","丑","寅","卯","辰","巳","午","未","申","酉","戌"],
+  ["丙","寅","卯","辰","巳","午","未","申","酉","戌","亥","子","丑"],
+  ["戊","寅","卯","辰","巳","午","未","申","酉","戌","亥","子","丑"],
+  ["庚","巳","午","未","申","酉","戌","亥","子","丑","寅","卯","辰"],
+  ["壬","申","酉","戌","亥","子","丑","寅","卯","辰","巳","午","未"],
+  ["乙","午","巳","辰","卯","寅","丑","子","亥","戌","酉","申","未"],
+  ["丁","酉","申","未","午","巳","辰","卯","寅","丑","子","亥","戌"],
+  ["己","酉","申","未","午","巳","辰","卯","寅","丑","子","亥","戌"],
+  ["辛","子","亥","戌","酉","申","未","午","巳","辰","卯","寅","丑"],
+  ["癸","卯","寅","丑","子","亥","戌","酉","申","未","午","巳","辰"]
+];
+const swGan = ["甲","丙","戊","庚","壬","乙","丁","己","辛","癸"];
+
+const hiddenStemData = [
+  { branch: "子", main: "癸", desc: "单藏一个阴水" },
+  { branch: "丑", main: "己", mid: "癸", rest: "辛", desc: "四墓库之一，湿土含癸水辛金" },
+  { branch: "寅", main: "甲", mid: "丙", rest: "戊", desc: "本气甲木，次季为夏故中气丙火" },
+  { branch: "卯", main: "乙", desc: "单藏一个阴木" },
+  { branch: "辰", main: "戊", mid: "乙", rest: "癸", desc: "四墓库之一，水库藏癸水，春之余气乙木" },
+  { branch: "巳", main: "丙", mid: "庚", rest: "戊", desc: "本气丙火，次季为秋故中气庚金" },
+  { branch: "午", main: "丁", mid: "己", desc: "火土同宫，含丁火和己土" },
+  { branch: "未", main: "己", mid: "丁", rest: "乙", desc: "四墓库之一，木库藏乙木" },
+  { branch: "申", main: "庚", mid: "壬", rest: "戊", desc: "本气庚金，次季为冬故中气壬水" },
+  { branch: "酉", main: "辛", desc: "单藏一个阴金" },
+  { branch: "戌", main: "戊", mid: "辛", rest: "丁", desc: "四墓库之一，火库藏丁火" },
+  { branch: "亥", main: "壬", mid: "甲", desc: "本气壬水，次季为春故中气甲木" }
+];
+
+const xunKong = [
+  ["甲子","甲戌","甲申","甲午","甲辰","甲寅"],
+  ["乙丑","乙亥","乙酉","乙未","乙巳","乙卯"],
+  ["丙寅","丙子","丙戌","丙申","丙午","丙辰"],
+  ["丁卯","丁丑","丁亥","丁酉","丁未","丁巳"],
+  ["戊辰","戊寅","戊子","戊戌","戊申","戊午"],
+  ["己巳","己卯","己丑","己亥","己酉","己未"],
+  ["庚午","庚辰","庚寅","庚子","庚戌","庚申"],
+  ["辛未","辛巳","辛卯","辛丑","辛亥","辛酉"],
+  ["壬申","壬午","壬辰","壬寅","壬子","壬戌"],
+  ["癸酉","癸未","癸巳","癸卯","癸丑","癸亥"]
+];
+const kongNames = ["戌亥","申酉","午未","辰巳","寅卯","子丑"];
+
+function getXun(gz) {
+  for (let i = 0; i < xunKong[0].length; i++) {
+    if (xunKong.some(row => row[i] === gz)) return i;
+  }
+  return -1;
+}
 
 export default function RelationsPage() {
   return (
@@ -10,16 +116,178 @@ export default function RelationsPage() {
         <div className="container">
           <TocSidebar>
             <div className="content-body">
-<h4>天干五合</h4>合的本意是吸引、相好、合作合不一定好，好坏需要看全面分析十天干，两两相合（两个天干之间总是阳天干的元素克制阴天干的元素），一共五组，故称“五合”<ul><li>甲己合 可以化为 土</li><li>乙庚合 可以化为 金</li><li>丙辛合 可以化为 水</li><li>丁壬合 可以化为 木</li><li>戊癸合 可以化为 火</li></ul>以上是五行阴阳相合，本质就是异性相吸<ul><li>甲木属阳，己土属阴，甲木本身是克土的，但是阳木遇到阴土，异性相吸</li><li>庚金属阳，乙木属阴，庚金本身是克木的，但是阳金遇到阴木，异性相吸</li><li>丙火属阳，辛金属阴，丙火本身是克金的，但是阳火遇到阴金，异性相吸</li><li>丁火属阴，壬水属阳，壬水本身是克火的，但是阳水遇到阴火，异性相吸</li><li>戊土属阳，癸水属阴，戊土本身是克水的，但是阳土遇到阴水，异性相吸</li></ul>
-<h4>天干四冲</h4>冲的本意就是排斥、对冲、干仗，冲的力量伤害是比较大的方位上是 对门相冲，阴阳上是 同性相斥<ul><li>甲庚冲</li><li>乙辛冲</li><li>壬丙冲</li><li>癸丁冲</li></ul>
-<h4>地支刑冲合害</h4><h4>地支六合</h4><table><tr><td>地支六合</td><td>六合关系</td><td>合化五行</td><td>反化</td></tr><tr><td>子丑合</td><td>克合</td><td>合化土</td><td>合化水</td></tr><tr><td>寅亥合</td><td>生合</td><td>合化木</td><td></td></tr><tr><td>卯戌合</td><td>克合</td><td>合化火</td><td></td></tr><tr><td>辰酉合</td><td>生合</td><td>合化金</td><td></td></tr><tr><td>巳申合</td><td>克合</td><td>合化水</td><td></td></tr><tr><td>午未合</td><td>生合</td><td>合化火土</td><td></td></tr></table> <h4>地支六冲</h4>水克火，所以水和火相冲，阳水与阳火冲，阴水与阴火冲金克木，所以金和木相冲，阳金与阳木冲，阴金与阴木冲辰戌同为四墓库中的阳土，但辰在三合局中化水局，戌在三合局中化火局，所以辰土与戌土相冲丑未同为四墓库中的阴土，但丑在三合局中化金局，戌在三合局中化木局，所以丑土与未土相冲<table><tr><td>地支六冲</td><td>五行关系</td><td>备注</td></tr><tr><td>子午冲</td><td>阳水阳火相冲</td><td>南北正位对冲</td></tr><tr><td>丑未冲</td><td>两阴土相冲</td><td></td></tr><tr><td>寅申冲</td><td>阳金阳木相冲</td><td>东西正位对冲</td></tr><tr><td>卯酉冲</td><td>阴金阴木相冲</td><td>东西正位对冲</td></tr><tr><td>辰戌冲</td><td>两阳土相冲</td><td></td></tr><tr><td>巳亥冲</td><td>阴水阴火相冲</td><td>南北正位对冲</td></tr></table> <h4>地支三合</h4>寅申巳亥——四长生子午卯酉——四帝旺辰戌丑未——四墓库<table><tr><td>地支三合</td><td>合局</td></tr><tr><td>申子辰</td><td>合水局</td></tr><tr><td>寅午戌</td><td>合火局</td></tr><tr><td>亥卯未</td><td>合木局</td></tr><tr><td>巳酉丑</td><td>合金局</td></tr></table><h4>地支三会</h4>东南西北四个方位，每个方位三个地支会聚成局，三会局的力量是最大的<table><tr><td>地支三会</td><td>会局</td></tr><tr><td>亥子丑</td><td>北方水局</td></tr><tr><td>寅卯辰</td><td>东方木局</td></tr><tr><td>巳午未</td><td>南方火局</td></tr><tr><td>申酉戌</td><td>西方金局</td></tr></table><h4>地支相刑</h4>相刑就是纠纷、排斥、纠结、难受，折磨等<table><tr><td>刑/分类</td><td>本质</td><td>性质</td><td>最怕</td></tr><tr><td>寅巳申三刑</td><td>寅刑巳，巳刑申，申刑寅</td><td>无恩之刑（ 忘恩负义、恩将仇报，常伴是非、官非与人际矛盾 ）</td><td>官非、车祸</td></tr><tr><td>丑未戌三刑</td><td>丑刑戌，戌刑未，未刑丑</td><td>恃势之刑（ 恃强凌弱、仗势欺人、固执争斗 ）</td><td>纠纷、慢性病</td></tr><tr><td>子卯互刑</td><td>子刑卯，卯刑子</td><td>无礼之刑（ 无礼、不孝、上下失和、私情乱伦 ）</td><td>家庭、感情风波</td></tr><tr><td>辰午酉亥自刑</td><td>辰辰，午午，酉酉，亥亥自刑</td><td>自刑（ 自我纠结、内耗、固执、想不开 ）</td><td>抑郁、内耗</td></tr></table>
-<h4>十天干生旺死绝</h4>是判断十天干力量状态的一套方法，也叫十二生旺长生、沐浴、冠带、临官、帝旺、衰、病、死、墓、绝、胎、养 共 12 种状态12 种状态可以对应十二个月和十二地支，比如甲木生在亥月，则甲木生在长生之月四长生：寅申巳亥四帝旺：子午卯酉四墓库：辰戌丑未<h4>十二生旺表</h4><table><tr><td>天干/生旺</td><td>长生</td><td>沐浴</td><td>冠带</td><td>临官</td><td>帝旺</td><td>衰</td><td>病</td><td>死</td><td>墓</td><td>绝</td><td>胎</td><td>养</td></tr><tr><td>甲</td><td>亥</td><td>子</td><td>丑</td><td>寅</td><td>卯</td><td>辰</td><td>巳</td><td>午</td><td>未</td><td>申</td><td>酉</td><td>戌</td></tr><tr><td>丙</td><td>寅</td><td>卯</td><td>辰</td><td>巳</td><td>午</td><td>未</td><td>申</td><td>酉</td><td>戌</td><td>亥</td><td>子</td><td>丑</td></tr><tr><td>戊</td><td>寅</td><td>卯</td><td>辰</td><td>巳</td><td>午</td><td>未</td><td>申</td><td>酉</td><td>戌</td><td>亥</td><td>子</td><td>丑</td></tr><tr><td>庚</td><td>巳</td><td>午</td><td>未</td><td>申</td><td>酉</td><td>戌</td><td>亥</td><td>子</td><td>丑</td><td>寅</td><td>卯</td><td>辰</td></tr><tr><td>壬</td><td>申</td><td>酉</td><td>戌</td><td>亥</td><td>子</td><td>丑</td><td>寅</td><td>卯</td><td>辰</td><td>巳</td><td>午</td><td>未</td></tr><tr><td>乙</td><td>午</td><td>巳</td><td>辰</td><td>卯</td><td>寅</td><td>丑</td><td>子</td><td>亥</td><td>戌</td><td>酉</td><td>申</td><td>未</td></tr><tr><td>丁</td><td>酉</td><td>申</td><td>未</td><td>午</td><td>巳</td><td>辰</td><td>卯</td><td>寅</td><td>丑</td><td>子</td><td>亥</td><td>戌</td></tr><tr><td>己</td><td>酉</td><td>申</td><td>未</td><td>午</td><td>巳</td><td>辰</td><td>卯</td><td>寅</td><td>丑</td><td>子</td><td>亥</td><td>戌</td></tr><tr><td>辛</td><td>子</td><td>亥</td><td>戌</td><td>酉</td><td>申</td><td>未</td><td>午</td><td>巳</td><td>辰</td><td>卯</td><td>寅</td><td>丑</td></tr><tr><td>癸</td><td>卯</td><td>寅</td><td>丑</td><td>子</td><td>亥</td><td>戌</td><td>酉</td><td>申</td><td>未</td><td>午</td><td>巳</td><td>辰</td></tr></table><ul><li>寅申巳亥为阳干四长生</li></ul><ul><li>亥水为冬天 甲木为春天 亥水为甲木之长生</li><li>寅木为春天 丙火为夏天 寅木为丙火之长生</li><li>已火为夏天 庚金为秋天 已火为庚金之长生</li><li>申金为秋天 王水为冬天 申金为王水之长生</li><li>土比较特殊 辰中藏戊土 辰为春末 春天主木 戊土长生在寅木</li></ul><ul><li>阳干顺排，阴干逆排</li></ul><ul><li>甲丙戊庚壬 从长生到养是顺序排列</li><li>乙丁己辛癸 从长生到养是倒序排列</li></ul><ul><li>阴干与阳干的长生与死正相反</li></ul><ul><li>甲亥长生乙亥死</li><li>丙寅长生丁寅死</li><li>戌寅长生己寅死</li><li>庚巳长生辛巳死</li><li>壬申长生癸申死</li></ul>
-<h4>地支藏干</h4>天主动，地主静，天干是否有力量取决于地支和藏干<table><tr><td></td><td>四帝旺</td><td></td><td>四长生</td><td></td><td>四墓库</td></tr><tr><td>地支</td><td>子</td><td>卯</td><td>酉</td><td>午</td><td></td><td>亥</td><td>寅</td><td>巳</td><td>申</td><td></td><td>辰</td><td>戌</td><td>丑</td><td>未</td></tr><tr><td>藏干</td><td>癸</td><td>乙</td><td>辛</td><td>丁</td><td></td><td>壬</td><td>甲</td><td>丙</td><td>庚</td><td></td><td>戊</td><td>戊</td><td>己</td><td>己</td></tr><tr><td></td><td>丙</td><td>庚</td><td>壬</td><td></td><td>乙</td><td>辛</td><td>癸</td><td>丁</td></tr><tr><td>己</td><td></td><td>甲</td><td>戊</td><td>戊</td><td>戊</td><td></td><td>癸</td><td>丁</td><td>辛</td><td>乙</td></tr></table><ul><li>子午卯酉为四正四帝旺</li></ul><ul><li>单藏一个天干（阴天干）</li><li>午火比较特殊，火土同宫，午火中除了丁火，还有一个己土（火生土）</li></ul><ul><li>辰戌丑未为四墓库</li></ul><ul><li>都是藏三个天干</li><li>本气都是土，所以都会藏有（墓）土</li><li>辰戌属阳藏戊（阳）土，丑未属阴藏己（阴）土</li><li>辰为晚春木旺，藏乙木</li><li>戌为晚秋金旺，藏辛金</li><li>丑为晚冬水旺，藏癸水</li><li>未为夏至火旺，藏丁火</li><li>申子辰合化水，辰为水库藏癸水</li><li>寅午戌合化火，戌为火库藏丁火</li><li>巳酉丑合化金，丑为金库藏辛金</li><li>亥卯未合化木，未为木库藏乙木</li></ul>乙辛癸丁都属阴，也就是四墓库中除了土，藏的都是阴干<ul><li>寅申巳亥为四长生</li></ul><ul><li>都是藏三个天干，只有亥水是有两个天干，都是阳天干</li><li>寅申巳的余气都是戊土</li><li>寅，本气是甲木，下个季节是夏天，所以中气是丙火</li><li>申，本气是庚金，下个季节是冬天，所以中气是壬水</li><li>巳，本气是丙火，下个季节是秋天，所以中气是庚金</li><li>亥，本气是壬水，下个季节是春天，所以中气是甲木</li></ul><h4>藏干力量的判断</h4>地支是核心力量，天干是表象天干力量只占 30%，地支力量占到 70%<ul><li>当有三个藏干时，本气占 60%，中气占 30%。余气占 10%</li><li>当有两个藏干时，本气占 70%，中气占 30%</li><li>当有一个藏干时，本气占 100%</li></ul>一个天干的力量在不考虑地支生克的情况下，仅仅是地支藏干一个中气的力量，甚至还可能不如，所以地支是核心能力，天干是表象，天干的力量占 30%，地支的力量占 70%
-<h4>空亡</h4>“空亡”是八字命理中一个非常独特且重要的概念，可以理解为一种“有名无实、力量落空”的状态，它就像星盘中的某个位置，虽然排了值班者，但人却没来，导致该位置所代表的食物变得虚无、不实<h4>从何而来</h4>这源于天干与地支的搭配，天干共 10 个，地支共 12 个，天干从“甲”开始，地支从“子”开始，每 10 对为一旬，六旬为一甲子，每旬必定会有 2 个地支轮空，这两个轮空的地支即为该旬中的空亡地支<table><tr><td>天干</td><td>甲</td><td>乙</td><td>丙</td><td>丁</td><td>戊</td><td>己</td><td>庚</td><td>辛</td><td>壬</td><td>癸</td><td>甲</td><td>乙</td></tr><tr><td>地支</td><td>子</td><td>丑</td><td>寅</td><td>卯</td><td>辰</td><td>巳</td><td>午</td><td>未</td><td>申</td><td>酉</td><td>戌</td><td>亥</td></tr></table><table><tr><td>六甲旬</td><td>空亡地支</td></tr><tr><td>甲子旬（甲子→癸酉）</td><td>戌、亥</td></tr><tr><td>甲戌旬（甲戌→癸未）</td><td>申、酉</td></tr><tr><td>甲申旬（甲申→癸巳）</td><td>午、未</td></tr><tr><td>甲午旬（甲午→癸卯）</td><td>辰、巳</td></tr><tr><td>甲辰旬（甲辰→癸丑）</td><td>寅、卯</td></tr><tr><td>甲寅旬（甲寅→癸亥）</td><td>子、丑</td></tr></table>每一旬中的地支的前两个地支就是这一旬的空亡地支，如：十二地支按顺序排列应该是“申酉戌”，那么申酉就是甲戌旬的空亡<h4>查法</h4>以日柱所在的一旬为准（有时也参考年柱）。比如日柱是“甲子”，就属于“甲子旬”，如果四柱地支中出现“戌”或“亥”，即为空亡。<ul><li>甲辰年：甲辰于甲辰旬，寅卯空亡——年空亡</li><li>乙亥月：乙亥于甲戌旬，申酉空亡——月空亡</li><li>丁巳日：丁巳于甲寅旬，子丑空亡——日空亡</li><li>甲戌时：甲戌于甲戌旬，申酉空亡——日空亡</li></ul><h4>推算月日时的天干</h4><h4>月天干</h4>如：2026 年，是丙午（马）年，2026 年的 1 月份，也就是春天开始的寅月，那么寅月也有一个对应的天干，但具体是什么天干暂不得知，于是可以用方法来推出 2026 丙午年中每一个月份的天干以及每一日的天干“五虎遁”是八字命理学中，以年干推算月干的核心法则。它与“五鼠遁”（日上起时法）互为呼应，是排定四柱中月柱天干的关键。简单说，它解决了这样一个问题：每一年的正月（第一个月）都是寅月，但天干是什么？记忆窍门： 关键在于“天干五合”。<ul><li>甲己合化土 → 土由火生，所以正月起丙（丙属火，火生土）</li><li>乙庚合化金 → 金由土生，所以正月起戊（戊属土）</li><li>丙辛合化水 → 水由金生，所以正月起庚（庚属金）</li><li>丁壬合化木 → 木由水生，所以正月起壬（壬属水）</li><li>戊癸合化火 → 火由木生，所以正月起甲（甲属木）</li></ul><table><tr><td>五虎遁</td></tr><tr><td>甲己之年丙作首</td><td>甲年、己年的第一个月是丙寅月，第二个月即是丁卯月</td></tr><tr><td>乙庚之岁戊为头</td><td>乙年、庚年的第一个月是戊寅月</td></tr><tr><td>丙辛必定寻庚起</td><td>丙年、辛年的第一个月是庚寅月</td></tr><tr><td>丁壬壬位顺行流</td><td>丁年、壬年的第一个月是壬寅月</td></tr><tr><td>若问戊癸何方发</td><td>戊年、癸年的第一个月是甲寅月</td></tr><tr><td>甲寅之上好追求</td></tr></table><h4>日天干</h4>这是四柱中最为特殊的一个，无法用简单的口诀或方法从年或月推算出来，最好的方法就是直接查万年历<h4>时天干</h4><table><tr><td>五鼠遁</td></tr><tr><td>甲己还加甲</td><td>甲日、己日——甲子时</td></tr><tr><td>乙庚丙作初</td><td>乙日、庚日——丙子时</td></tr><tr><td>丙辛从戊起</td><td>丙日、辛日——戊子时</td></tr><tr><td>丁壬庚子居</td><td>丁日、壬日——庚子时</td></tr><tr><td>戊癸起壬子</td><td>戊日、癸日——壬子时</td></tr><tr><td>周而复始求</td><td></td></tr></table>
+
+          <h2>一、天干五合</h2>
+          <p>"合"的本意是吸引、相好、合作。合不一定好，好坏需要看全面分析。</p>
+          <p>十天干，两两相合，两个天干之间总是阳天干的元素克阴天干的元素，但因为异性相吸而化解了克的关系，转而相合，共五组，故称"五合"。</p>
+          <table><thead><tr><th>相合</th><th>合化</th><th>说明</th></tr></thead><tbody>
+            {fiveHe.map(([pair, wx,,,desc], i) => (
+              <tr key={i}>
+                <td>{pair.split("").map((c, j) => <StemWx key={j} c={c} />)}</td>
+                <td className={"wx-" + wx}>{wx}</td>
+                <td style={{textAlign:"left",fontSize:"0.85rem"}}>{desc}</td>
+              </tr>
+            ))}
+          </tbody></table>
+          <div className="info-box"><strong>口诀：</strong>甲己合土，乙庚合金，丙辛合水，丁壬合木，戊癸合火。</div>
+
+          <h2>二、天干四冲</h2>
+          <p>"冲"的本意就是排斥、对冲、干仗，冲的力量伤害比较大。方位上是<strong>对门相冲</strong>，阴阳上是<strong>同性相斥</strong>。</p>
+          <p>天干相冲，相距七位（相隔 7 个干），同性相克为"冲"——阳克阳、阴克阴，力度大于普通相克：</p>
+          <table><thead><tr><th>相冲</th><th>关系</th></tr></thead><tbody>
+            {fourChong.map(([pair, si1, si2], i) => (
+              <tr key={i}>
+                <td><StemWx c={pair[0]} /> ↔ <StemWx c={pair[1]} /></td>
+                <td>{stemWx[si1]}克{stemWx[si2]}，同{stemWx[si1]}相冲</td>
+              </tr>
+            ))}
+          </tbody></table>
+
+                              <h2>三、地支六合</h2>
+          <p>子丑合、寅亥合、卯戌合、辰酉合、巳申合、午未合。</p>
+          <div className="callout-box">
+            <p><strong>生合 vs 克合：</strong></p>
+            <p>生合：相合的两地支本身是相生关系，如寅木生亥水，辰土生酉金，午火生未土，合化更加顺利</p>
+            <p>克合：相合的两地支本身是相克关系，如子水克丑土，卯木克戌土，巳火克申金，合化过程中会有阻力</p>
+          </div>
+          <table><thead><tr><th>地支六合</th><th>六合关系</th><th>合化五行</th><th>反化</th></tr></thead><tbody>
+            {sixHe.map((s, i) => (
+              <tr key={i}>
+                <td><BranchWx c={s.pair[0]} /><BranchWx c={s.pair[1]} /></td>
+                <td>{s.relation}</td>
+                <td>{s.result}</td>
+                <td>{s.reverse || ""}</td>
+              </tr>
+            ))}
+          </tbody></table>
+          <h2>四、地支六冲</h2>
+          <p>地支相距六位者相冲，共六组。冲则动，冲则变：</p>
+          <div className="callout-box">
+            <p><strong>口诀：</strong></p>
+            <p>水克火，所以水和火相冲，阳水与阳火冲，阴水与阴火冲</p>
+            <p>金克木，所以金和木相冲，阳金与阳木冲，阴金与阴木冲</p>
+            <p>辰戌同为四墓库中的阳土，但辰在三合局中化水局，戌在三合局中化火局，所以辰土与戌土相冲</p>
+            <p>丑未同为四墓库中的阴土，但丑在三合局中化金局，未在三合局中化木局，所以丑土与未土相冲</p>
+          </div>
+          <table><thead><tr><th>地支六冲</th><th>五行关系</th><th>备注</th></tr></thead><tbody>
+            {sixChongs.map((s, i) => (
+              <tr key={i}>
+                <td><BranchWx c={s.pair[0]} /><BranchWx c={s.pair[1]} /> — {s.pair}冲</td>
+                <td>{s.wx}相冲</td>
+                <td>{s.note || ""}</td>
+              </tr>
+            ))}
+          </tbody></table>
+          <h2>五、地支三合</h2>
+          <p>三个地支凑齐为三合局，力量强大。三合局中间的地支为"中神"，力量最旺：</p>
+          <table><thead><tr><th>三合</th><th>合化</th></tr></thead><tbody>
+            {sanHe.map(([b1, b2, b3, wx], i) => (
+              <tr key={i}>
+                <td><BranchWx c={b1} /><BranchWx c={b2} /><BranchWx c={b3} /></td>
+                <td className={"wx-" + wx}>{wx + "局"}</td>
+              </tr>
+            ))}
+          </tbody></table>
+
+          <h2>六、地支三会</h2>
+          <p>同一季节的三个地支凑齐为三会局，力量最大，代表季节之气：</p>
+          <table><thead><tr><th>三会</th><th>会合</th><th>季节</th></tr></thead><tbody>
+            {sanHui.map(([b1, b2, b3, wx, season], i) => (
+              <tr key={i}>
+                <td><BranchWx c={b1} /><BranchWx c={b2} /><BranchWx c={b3} /></td>
+                <td className={"wx-" + wx}>{wx + "局"}</td>
+                <td>{season}</td>
+              </tr>
+            ))}
+          </tbody></table>
+
+          <h2>七、地支相刑</h2>
+          {xingItems.map((x, i) => (
+            <div key={i} style={{marginBottom:"0.6rem"}}>
+              <h3>{x.name}</h3>
+              <p>{x.pairs.map((p, j) => (
+                <span key={j}>{p.map((c, k) => <BranchWx key={k} c={c} />)}{j < x.pairs.length - 1 ? "、" : ""}</span>
+              ))} — {x.desc}</p>
             </div>
-          </TocSidebar>
+          ))}
+          <div className="callout-box"><strong>📌 注意：</strong>刑不一定全凶，需结合命局喜忌综合判断。</div>
+
+                    <h2>八、十二生旺表</h2>
+          <p>十天干在十二地支所处的位置不同，状态也不同，通过十二生旺表可以判断五行气数的盛衰。</p>
+          <p>从"长生"到"帝旺"为事物从出生到鼎盛的过程，从"衰"到"绝"为衰落直至消亡，"胎""养"则是新一轮生命的孕育。</p>
+          <div className="table-scroll">
+          <table className="small"><thead><tr><th>天干\状态</th>
+            {shengWang.map((s, i) => <th key={i} style={{fontSize:"0.75rem"}}>{s}</th>)}
+          </tr></thead><tbody>
+            {swTable.map((row, ri) => (
+              <tr key={ri}>
+                <th><StemWx c={row[0]} /></th>
+                {row.slice(1).map((b, ci) => (
+                  <td key={ci} className={ci < 5 ? "wx-" + branchWx[branches.indexOf(b)] : ""}>
+                    <BranchWx c={b} />
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody></table>
+          </div>
+          <div className="callout-box"><strong>📌 阳顺阴逆：</strong>阳干（甲丙戊庚壬）顺行排十二宫，阴干（乙丁己辛癸）逆行排十二宫。阳干帝旺在阴支，阴干帝旺在阳支。</div>
+
+          <h2>九、地支藏干</h2>
+          <p>地支是核心力量，天干是表象。每个地支中藏有不同程度的天干能量，分<strong>主气（本气）</strong>、<strong>中气</strong>、<strong>余气</strong>。</p>
+          <div className="callout-box">
+            <strong>📌 力量判断：</strong>一个天干的力量在不考虑生克的情况下，仅仅是地支藏干一个中气的力量，甚至还可能不如。<br/>
+            天干力量只占 <strong>30%</strong>，地支力量占到 <strong>70%</strong>。<br/>
+            有三个藏干时：本气 60%、中气 30%、余气 10%。<br/>
+            有两个藏干时：本气 70%、中气 30%。<br/>
+            有一个藏干时：本气 100%。
+          </div>
+          <table><thead><tr><th>地支</th><th>主气（本气）</th><th>中气</th><th>余气</th><th>说明</th></tr></thead><tbody>
+            {hiddenStemData.map((h, i) => (
+              <tr key={i}>
+                <td><BranchWx c={h.branch} /></td>
+                <td><StemWx c={h.main} /></td>
+                <td>{h.mid ? <StemWx c={h.mid} /> : "—"}</td>
+                <td>{h.rest ? <StemWx c={h.rest} /> : "—"}</td>
+                <td style={{textAlign:"left",fontSize:"0.82rem"}}>{h.desc}</td>
+              </tr>
+            ))}
+          </tbody></table>
+          <p><strong>四墓库</strong>（辰戌丑未）比较特殊：本气都是土，辰为水库藏癸水，戌为火库藏丁火，丑为金库藏辛金，未为木库藏乙木。四墓库中除了土，藏的藏干都是阴干（乙辛癸丁）。</p>
+          <p><strong>四生方</strong>（寅申巳亥）：本气是当前季节的五行，中气是下一季节的五行。如寅本气甲木（春），中气丙火（夏）；申本气庚金（秋），中气壬水（冬）。</p>
+
+          <h2>十、空亡</h2>
+          <p>"空亡"是八字命理中一个非常独特且重要的概念，可以理解为一种<strong>"有名无实、力量落空"</strong>的状态。就像某个岗位排了值班者，但人却没来。</p>
+          <p>天干共 10 个，地支共 12 个，天干从甲开始搭配地支从子开始，每 10 对为一旬，六旬为一甲子。每旬必定会有 2 个地支轮空，这两个轮空的地支即为该旬中的<strong>空亡</strong>地支。</p>
+          <p>以日柱所在的一旬为准，如果四柱中出现空亡的地支，该柱力量减弱：</p>
+          <div className="table-scroll">
+          <table className="small"><thead><tr><th>旬</th><th>空亡地支</th></tr></thead><tbody>
+            {kongNames.map((kn, i) => (
+              <tr key={i}>
+                <td>{xunKong[0][i]}旬 ~ {xunKong[9][i]}</td>
+                <td className="wx-土">{kn.split("").map((c, j) => <BranchWx key={j} c={c} />)}</td>
+              </tr>
+            ))}
+          </tbody></table>
+          </div>
+          <div className="callout-box">
+            <strong>📌 查法：</strong>先看日柱属于哪一旬，该旬对应的空亡地支即为日柱的空亡。比如日柱甲子（甲子旬），戌亥为空亡。<br/>
+            <strong>📌 力量判断：</strong>空亡之地支所代表的十神力量减弱约 50%。若被大运/流年填实（出现该地支），则空亡解除。
+          </div>
+
+        </div>
+                    </TocSidebar>
         </div>
       </section>
     </div>
   );
 }
+
+
+
+
+
+
+
+
+

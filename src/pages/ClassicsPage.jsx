@@ -1,5 +1,5 @@
-import TocSidebar from "../components/TocSidebar";
-﻿export default function ClassicsPage() {
+﻿import TocSidebar from "../components/TocSidebar";
+export default function ClassicsPage() {
   const books = [
     { n: "《渊海子平》", e: "宋·徐子平", d: "子平法奠基，四柱论命体系开创" },
     { n: "《三命通会》", e: "明·万民英", d: "命理百科全书，十二卷巨制" },
@@ -37,3 +37,4 @@ import TocSidebar from "../components/TocSidebar";
     </div>
   );
 }
+
