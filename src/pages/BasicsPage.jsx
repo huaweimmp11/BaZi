@@ -53,9 +53,6 @@ function BranchWx({ c }) { const i = branches.indexOf(c); return i >= 0 ? <span 
 export default function BasicsPage() {
   return (
     <div>
-      <div className="page-header">
-        <div className="container"><h1>基础入门</h1><p>四柱八字 · 阴阳五行 · 天干地支 · 类象节气</p></div>
-      </div>
       <section className="content">
         <div className="container">
           <TocSidebar>

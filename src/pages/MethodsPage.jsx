@@ -43,9 +43,6 @@ export default function MethodsPage() {
 
   return (
     <div>
-      <div className="page-header">
-        <div className="container"><h1>推算起法</h1><p>五虎遁 · 五鼠遁 · 日柱公式 · 大运起法</p></div>
-      </div>
       <section className="content">
         <div className="container">
           <TocSidebar>

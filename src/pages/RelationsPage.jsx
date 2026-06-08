@@ -109,9 +109,6 @@ function getXun(gz) {
 export default function RelationsPage() {
   return (
     <div>
-      <div className="page-header">
-        <div className="container"><h1>干支关系</h1><p>天干五合 · 天干四冲 · 地支刑冲合害 · 生旺死绝 · 地支藏干 · 空亡</p></div>
-      </div>
       <section className="content">
         <div className="container">
           <TocSidebar>

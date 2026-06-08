@@ -13,9 +13,6 @@ export default function ClassicsPage() {
 
   return (
     <div>
-      <div className="page-header">
-        <div className="container"><h1>经典参考</h1><p>八字命理核心典籍 · 源流与概要</p></div>
-      </div>
       <section className="content">
         <div className="container">
           <TocSidebar>

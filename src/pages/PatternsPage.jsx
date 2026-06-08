@@ -2,9 +2,6 @@
 export default function PatternsPage() {
   return (
     <div>
-      <div className="page-header">
-        <div className="container"><h1>格局 · 大运 · 流年</h1><p>辨格局取用神 · 推大运断流年</p></div>
-      </div>
       <section className="content">
         <div className="container">
           <TocSidebar>

@@ -6,3 +6,8 @@ vite*.log
 .vercel
 
 deploy.ps1
+# Temp files
+*.py
+*.txt
+old_section.txt
+rep_data.txt

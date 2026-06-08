@@ -1,9 +1,11 @@
-﻿import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 
 export default function TocSidebar({ children }) {
   const [headings, setHeadings] = useState([]);
   const [activeId, setActiveId] = useState("");
+  const [tocOpen, setTocOpen] = useState(false);
   const contentRef = useRef(null);
+  const observerRef = useRef(null);
 
   useEffect(() => {
     const el = contentRef.current;
@@ -16,6 +18,7 @@ export default function TocSidebar({ children }) {
     setHeadings(items);
     if (items.length < 3) return;
 
+    if (observerRef.current) observerRef.current.disconnect();
     const observer = new IntersectionObserver(
       (entries) => {
         let topMost = null, topY = Infinity;
@@ -29,24 +32,26 @@ export default function TocSidebar({ children }) {
       },
       { rootMargin: "-60px 0px -60% 0px" }
     );
+    observerRef.current = observer;
     items.forEach(({ id }) => {
       const h = document.getElementById(id);
       if (h) observer.observe(h);
     });
-    return () => observer.disconnect();
-  }, [children]);
+    return () => { if (observerRef.current) observerRef.current.disconnect(); };
+  }, []);
 
   const scrollTo = useCallback((id) => {
     const el = document.getElementById(id);
     if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+    setTocOpen(false);
   }, []);
 
   if (headings.length < 3) return <div className="toc-content-full">{children}</div>;
 
   return (
-    <div style={{display:"flex",gap:"24px",alignItems:"flex-start"}}>
+    <div style={{display:"flex",gap:"24px",alignItems:"flex-start",position:"relative"}}>
       <div className="toc-content" ref={contentRef}>{children}</div>
-      <nav className="toc-sidebar">
+      <nav className={"toc-sidebar" + (tocOpen ? " toc-open" : "")}>
         <div className="toc-title">本页目录</div>
         {headings.map(h => (
           <button key={h.id} className={"toc-item toc-l" + h.level + (activeId === h.id ? " toc-active" : "")} onClick={() => scrollTo(h.id)}>
@@ -54,7 +59,9 @@ export default function TocSidebar({ children }) {
           </button>
         ))}
       </nav>
+      <button className="toc-toggle" onClick={() => setTocOpen(o => !o)} aria-label="目录">
+        {tocOpen ? "✕" : "📖"}
+      </button>
     </div>
   );
 }
-

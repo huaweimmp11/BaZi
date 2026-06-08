@@ -7,6 +7,7 @@ import ShiShenPage from "./pages/ShiShenPage";
 import PatternsPage from "./pages/PatternsPage";
 import ClassicsPage from "./pages/ClassicsPage";
 import MethodsPage from "./pages/MethodsPage";
+import CalendarPage from "./pages/CalendarPage";
 import RelationsPage from "./pages/RelationsPage";
 import "./App.css";
 import "./animations.css";
@@ -20,7 +21,13 @@ const links = [
   { to: "/shishen", label: "🔤 十神" },
   { to: "/patterns", label: "🏛️ 格局大运" },
   { to: "/methods", label: "📐 推算起法" },
+  { to: "/tools", label: "🛠️ 工具" },
   { to: "/classics", label: "📚 经典参考" }
+];
+
+const THEMES = [
+  { value: "guya", label: "古雅" },
+  { value: "moyu", label: "墨玉" }
 ];
 
 function CrossFade({ children, locationKey }) {
@@ -54,11 +61,29 @@ function CrossFade({ children, locationKey }) {
 
 export default function App() {
   const location = useLocation();
+  const [theme, setTheme] = useState("guya");
+  const [dd, setDD] = useState(false);
 
-  useEffect(() => { window.scrollTo({ top: 0, behavior: "smooth" }); }, [location.pathname]);
+  useEffect(() => {
+    const saved = localStorage.getItem("bazi-theme");
+    if (saved && THEMES.some(t => t.value === saved)) {
+      setTheme(saved);
+      document.documentElement.dataset.theme = saved;
+    } else {
+      document.documentElement.dataset.theme = "guya";
+    }
+  }, []);
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+    localStorage.setItem("bazi-theme", theme);
+  }, [theme]);
+
+  useEffect(() => { if ('scrollRestoration' in history) history.scrollRestoration = 'manual'; window.scrollTo(0, 0); }, []);
+  useEffect(() => { window.scrollTo({ top: 0, behavior: 'smooth' }); }, [location.pathname]);
 
   return (
-    <div style={{ background: "var(--paper)", minHeight: "100vh" }}>
+    <div style={{ background: "var(--paper)", minHeight: "100vh", display: "flex", flexDirection: "column" }}>
       <header className="header">
         <div className="header-inner">
           <div className="logo"><span>八</span>字命理 · <span>学</span></div>
@@ -68,22 +93,38 @@ export default function App() {
                 {l.label}
               </NavLink>
             ))}
+                        <div className="theme-dd-wrap">
+              <button className="theme-dd-btn" onClick={() => setDD(o => !o)} onBlur={() => setTimeout(() => setDD(false), 150)}>
+                {THEMES.find(t => t.value === theme)?.label || "主题"} ▾
+              </button>
+              {dd && <div className="theme-dd-menu">
+                {THEMES.map(t => (
+                  <div key={t.value} className={"theme-dd-item" + (t.value === theme ? " active" : "")}
+                    onMouseDown={() => { setTheme(t.value); setDD(false); }}>
+                    {t.label}
+                  </div>
+                ))}
+              </div>}
+            </div>
           </nav>
         </div>
       </header>
 
-      <CrossFade locationKey={location.pathname}>
-        <Routes location={location}>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/basics" element={<BasicsPage />} />
-          <Route path="/methods" element={<MethodsPage />} />
-          <Route path="/calculator" element={<CalculatorPage />} />
-          <Route path="/shishen" element={<ShiShenPage />} />
-          <Route path="/patterns" element={<PatternsPage />} />
-          <Route path="/classics" element={<ClassicsPage />} />
-          <Route path="/relations" element={<RelationsPage />} />
-        </Routes>
-      </CrossFade>
+      <div style={{ flex: 1 }}>
+        <CrossFade locationKey={location.pathname}>
+          <Routes location={location}>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/basics" element={<BasicsPage />} />
+            <Route path="/methods" element={<MethodsPage />} />
+            <Route path="/calculator" element={<CalculatorPage />} />
+            <Route path="/shishen" element={<ShiShenPage />} />
+            <Route path="/patterns" element={<PatternsPage />} />
+            <Route path="/tools" element={<CalendarPage />} />
+            <Route path="/classics" element={<ClassicsPage />} />
+            <Route path="/relations" element={<RelationsPage />} />
+          </Routes>
+        </CrossFade>
+      </div>
 
       <footer className="footer">
         <p><strong>八字命理 · 从零开始学</strong> — 传承经典，理性研习</p>
@@ -92,4 +133,3 @@ export default function App() {
     </div>
   );
 }
-

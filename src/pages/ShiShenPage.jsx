@@ -20,9 +20,6 @@ export default function ShiShenPage() {
 
   return (
     <div>
-      <div className="page-header">
-        <div className="container"><h1>十神体系</h1><p>以日干为中心 · 十种关系的语言</p></div>
-      </div>
       <section className="content">
         <div className="container">
           <TocSidebar>
