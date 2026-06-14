@@ -127,7 +127,7 @@ export default function CalculatorPage() {
                 <div className="cl">地支</div>
                 {r.pillars.map((p, i) =>
                   <div key={"b"+i} className="cp">
-                    <div className={"branch wx-" + p.wuxing}>{p.branch}</div>
+                    <div className={"branch wx-" + p.branchWuxing}>{p.branch}</div>
                   </div>
                 )}
                 <div className="cl">纳音</div>

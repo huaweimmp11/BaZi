@@ -81,8 +81,12 @@ export default function CalendarPage() {
   }, [year, month]);
 
   const goToday = useCallback(() => {
-    setYear(today.getFullYear());
-    setMonth(today.getMonth() + 1);
+    const y = today.getFullYear(), m = today.getMonth() + 1, d = today.getDate();
+    setYear(y);
+    setMonth(m);
+    const info = getLunarInfo(y, m, d);
+    setSelected(d);
+    setDetailInfo({ day: d, info });
   }, []);
 
   const [jumpY, setJumpY] = useState(today.getFullYear());
@@ -90,17 +94,23 @@ export default function CalendarPage() {
   const [jumpD, setJumpD] = useState(today.getDate());
 
   const doJump = useCallback(() => {
-    if (jumpY && jumpM) {
+    if (jumpY && jumpM && jumpD) {
+      const m = Math.min(12, Math.max(1, jumpM));
+      const maxD = new Date(jumpY, m, 0).getDate();
+      const d = Math.min(maxD, Math.max(1, jumpD));
       setYear(jumpY);
-      setMonth(Math.min(12, Math.max(1, jumpM)));
-      setSelected(null);
-      setDetailInfo(null);
+      setMonth(m);
+      setJumpD(d);
+      const info = getLunarInfo(jumpY, m, d);
+      setSelected(d);
+      setDetailInfo({ day: d, info });
     }
-  }, [jumpY, jumpM]);
+  }, [jumpY, jumpM, jumpD]);
 
   function getLunarInfo(y, m, d) {
     try {
-      const lunar = Lunar.fromYmd(y, m, d);
+      const solar = Solar.fromYmd(y, m, d);
+      const lunar = solar.getLunar();
       if (!lunar) return null;
       const gz = lunar.getDayInGanZhi();
       const monthGz = lunar.getMonthInGanZhi();

@@ -8,6 +8,7 @@ import { Solar, Lunar } from "lunar-javascript";
 const STEMS = ["甲","乙","丙","丁","戊","己","庚","辛","壬","癸"];
 const BRANCHES = ["子","丑","寅","卯","辰","巳","午","未","申","酉","戌","亥"];
 const WUXING = ["木","木","火","火","土","土","金","金","水","水"];
+const BRANCH_WUXING = ["水","土","木","木","土","火","火","土","金","金","土","水"];
 const HIDDEN_STEMS = [
   ["癸"],["己","癸","辛"],["甲","丙","戊"],["乙"],
   ["戊","乙","癸"],["丙","庚","戊"],["丁","己"],["己","丁","乙"],
@@ -92,10 +93,10 @@ export function calculate(birthYear, birthMonth, birthDay, birthHour, gender) {
   const mi = STEMS.indexOf(mg[0]), mbi = BRANCHES.indexOf(mg[1]);
   const di = STEMS.indexOf(dg[0]), dbi = BRANCHES.indexOf(dg[1]);
   const ti = STEMS.indexOf(tg[0]), tbi = BRANCHES.indexOf(tg[1]);
-  const yp = { stem: yg[0], branch: yg[1], stemIdx: yi, branchIdx: ybi, wuxing: WUXING[yi], naYin: getNaYin(yi, ybi) };
-  const mp = { stem: mg[0], branch: mg[1], stemIdx: mi, branchIdx: mbi, wuxing: WUXING[mi], naYin: getNaYin(mi, mbi) };
-  const dp = { stem: dg[0], branch: dg[1], stemIdx: di, branchIdx: dbi, wuxing: WUXING[di], naYin: getNaYin(di, dbi) };
-  const hp = { stem: tg[0], branch: tg[1], stemIdx: ti, branchIdx: tbi, wuxing: WUXING[ti], naYin: getNaYin(ti, tbi) };
+  const yp = { stem: yg[0], branch: yg[1], stemIdx: yi, branchIdx: ybi, wuxing: WUXING[yi], branchWuxing: BRANCH_WUXING[ybi], naYin: getNaYin(yi, ybi) };
+  const mp = { stem: mg[0], branch: mg[1], stemIdx: mi, branchIdx: mbi, wuxing: WUXING[mi], branchWuxing: BRANCH_WUXING[mbi], naYin: getNaYin(mi, mbi) };
+  const dp = { stem: dg[0], branch: dg[1], stemIdx: di, branchIdx: dbi, wuxing: WUXING[di], branchWuxing: BRANCH_WUXING[dbi], naYin: getNaYin(di, dbi) };
+  const hp = { stem: tg[0], branch: tg[1], stemIdx: ti, branchIdx: tbi, wuxing: WUXING[ti], branchWuxing: BRANCH_WUXING[tbi], naYin: getNaYin(ti, tbi) };
   const pillars = [yp, mp, dp, hp];
   const dsi = di;
   const ss = [calcShiShen(dsi, yi), calcShiShen(dsi, mi), "比肩", calcShiShen(dsi, ti)];
@@ -104,4 +105,4 @@ export function calculate(birthYear, birthMonth, birthDay, birthHour, gender) {
   return { yearPillar: yp, monthPillar: mp, dayPillar: dp, hourPillar: hp, pillars, shiShenPillars: ss, hiddenStems: hs, dayStem: dg[0], daYun: dy, source: "lunar-javascript" };
 }
 
-export { STEMS, BRANCHES, calcShiShen, getHourBranch };
+export { STEMS, BRANCHES, WUXING, BRANCH_WUXING, calcShiShen, getHourBranch };
